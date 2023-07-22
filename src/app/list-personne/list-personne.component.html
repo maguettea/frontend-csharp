@@ -1,0 +1,43 @@
+<div class="row">
+    <h2 class="text-center bg-primary  title">La Liste des Personnes</h2>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>First NAME</th>
+            <th>last NAME</th>
+            <th>Address</th>
+            <th>BirthDay</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let personne of personne  
+            | paginate
+            : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index">
+            <td>{{personne.firstName}}</td>
+            <td>{{personne.lastName}}</td>
+            <td>{{personne.address}}</td>
+            <td>{{personne.birthDay}}</td>
+            <td>{{personne.phone}}</td>
+            <td>
+                <button type="button" class="btn btn-primary btn-sm move-left" [routerLink]="['/details-personne/', personne.Id]">Details</button>
+                <button type="button" class="btn btn-success btn-sm move-right" [routerLink]="['/update-personne/', personne.Id]">Modifier</button>
+                <button type="button" class="btn btn-danger btn-sm" (click)="deletePersonne(personne)">Supprimer</button>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center">
+    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+</div>
